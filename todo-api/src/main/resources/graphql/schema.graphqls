@@ -1,0 +1,45 @@
+type Todo {
+  id: ID!
+  name: String!
+  description: String
+  status: TodoStatus!
+  priority: TodoPriority!
+}
+
+enum TodoStatus {
+  OPEN
+  IN_PROGRESS
+  DONE
+}
+
+enum TodoPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+input CreateTodoInput {
+  name: String!
+  description: String
+  status: TodoStatus!
+  priority: TodoPriority!
+}
+
+input UpdateTodoInput {
+  name: String
+  description: String
+  status: TodoStatus
+  priority: TodoPriority
+}
+
+type Query {
+  todo(id: ID!): Todo
+  todos(id: ID, name: String, status: TodoStatus, priority: TodoPriority): [Todo!]!
+}
+
+type Mutation {
+  createTodo(input: CreateTodoInput!): Todo!
+  updateTodo(id: ID!, input: UpdateTodoInput!): Todo!
+  deleteTodo(id: ID!): Boolean!
+}
